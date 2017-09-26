@@ -64,3 +64,10 @@ command /motd [<text>]:
             set {Motd} to arg 1
             replace all "&" in {Motd} with "§"
             message "&a[MOTD] Nouveau motd défini (%{Motd}%&a)"
+            
+command /motd help:
+    permission: motd.help
+    permission message: &c&lERROR &7You do not have permission
+    trigger:
+        message "&c&l(!) MOTD ADDON BY NEPTUNIUMVOID"
+        
