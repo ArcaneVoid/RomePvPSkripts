@@ -1,0 +1,12 @@
+command /staffonline:
+	description: Shows online staff
+	trigger:
+		loop all players:
+			loop-player has permission "RomePvP.Staff"
+			add loop-player to {_online staff::*}
+ 
+		size of {_online staff::*} is 0:
+			message "No staff currently online! Happy griefing ;)!"
+		else:
+			message "&c&lONLINE STAFF &8> &7Online staff:"
+      message "&c%{_online staff::*}%"
