@@ -1,0 +1,66 @@
+on load:
+    if {Motd} is not set:
+        set {Motd} to "&f[MOTD] à modifier avec la command /motd <text>"
+on server list ping:
+    if {enable.motd} is true:
+        set motd to "%{Motd}%"
+   
+command /maxplayers [<number>]:
+    permission: maxplayer.modify
+    permission message: &cTu ne peux pas modifier cela
+    trigger:
+        if {auto} is true:
+            send "&c[AUTO] Le mode automatique est activé ! Désactivez le pour utiliser cette commande (/playerauto)"
+            stop
+        if number arg is not set:
+            message "&c[MOTD] Syntaxe: /maxplayers <nombre>"
+            stop
+        else:
+            set {SetmaxPlayer} to arg 1
+            send "&a[MOTD] Nouveau nombre de slots définis : &f%arg 1%"
+command /motdenable:
+    permission: motd.enable
+    permission message: &cTu n'as pas la permission
+    trigger:
+        set {enable.motd} to true
+        send "&a[MOTD] Motd activé !"
+command /motddisable:
+    permission: motd.disable
+    permission message: &cTu n'as pas la permission
+    trigger:
+        clear {enable.motd}
+        send "&c[MOTD] Motd désactivé !"
+   
+command /playerauto:
+    permission: playerauto.allow
+    permission message: &cTu ne peux pas modifier cela
+    trigger:
+        if {auto} is true:
+            clear {auto}
+            send "&a[MOTD] Mode automatique désactivé"
+            stop
+        if {auto} is not set:
+            set {auto} to true
+            send "&a[MOTD] Mode automatique activé"
+            stop
+on server list ping:
+    if {auto} is true:
+        set {_count} to 0
+        loop all players:
+            add 1 to {_count}
+        set max player count to {_count}
+        stop
+    else:
+        set max player count to {SetMaxPlayer}
+   
+command /motd [<text>]:
+    permission: motd.set
+    permission message: &cTu n'as pas la permission
+    trigger:
+        if arg 1 is not set:
+            send "&c[MOTD] Syntaxe: /motd [<text>]"
+            stop
+        else:
+            set {Motd} to arg 1
+            replace all "&" in {Motd} with "§"
+            message "&a[MOTD] Nouveau motd défini (%{Motd}%&a)"
