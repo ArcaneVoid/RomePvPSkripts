@@ -1,0 +1,41 @@
+#This Skript File is for use of RomePvP
+#Created by NeptuniumVoid
+
+player has permission "essentials.spawn"
+victim has the permission "*":
+	send "&cYou hare Not allowed to attack this player" to attacker
+  
+on login:
+	chance of 25%:
+		give a cake to the player
+		send "&a&l> &aYou have recieved a CAKE &7(Chance:" to the player
+	else:
+		send "You were not fortunate enough to get a gift this time. Try again next time!" to the player
+ 
+ on rightclick on a creeper:
+    send "&cUnfortunatly You cannot be friends with this creature!"
+    
+on connect:
+	player doesn't have permission "Slot.VIP"
+	number of players is larger than 50
+	kick the player due to "The last 5 slots are reserved for VIP players."
+
+#
+# A simple message of the day script.
+# The MOTD can be set with the /setmotd command,
+# and it will be sent to each player when they log in
+# and when they use the /motd command.
+#
+
+on first join:
+	# uncomment the following line to make the MOTD appear after other messages
+	# wait a tick
+	message "&c"
+  message "&c&l<(!)> &c%player% has joined &c&lRomePvP&7"
+  message ""
+  
+on join:
+    set join message to "&a+ &7%player%"
+    
+on quit:
+    set quit message to "&c- &7%players%"
